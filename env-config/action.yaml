@@ -18,4 +18,3 @@ runs:
         echo "config=$(jq -c . < ${{ github.action_path }}/config.json)" >> $GITHUB_OUTPUT
     - run: |
         echo "JAVA_MAIN=${{ fromJson(steps.load-ci-properties.outputs.config).java.main }}" >> "$GITHUB_ENV"
-        echo "JAVA_NEXT=${{ fromJson(env.CONFIG_JSON).java.next }}" >> "$GITHUB_ENV"
