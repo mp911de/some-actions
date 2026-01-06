@@ -14,9 +14,7 @@ runs:
       id: load-ci-properties
       shell: bash
       run: |
-        ls -la ${{ github.action_path }}
-        echo "${{ github.action_path }}"
-        content=`cat config.json`
+        content=`cat ${{ github.action_path }}/config.json`
         # the following lines are only required for multi line json
         content="${content//'%'/'%25'}"
         content="${content//$'\n'/'%0A'}"
