@@ -5,7 +5,7 @@ description: 'Loads the CI environment configuration into outputs'
 outputs:
   ci-properties:
     description: 'CI Properties'
-    value: ${{ steps.load-ci-properties.outputs.ci-properties }}
+    value: ${{ steps.load-ci-properties.outputs.config }}
 
 runs:
   using: composite
@@ -14,9 +14,8 @@ runs:
       id: load-ci-properties
       shell: bash
       run: |
-        echo 'PROPERTIES_JSON<<EOF' >> $GITHUB_ENV
-        cat ${{ github.action_path }}/config.json >> $GITHUB_ENV
-        echo 'EOF' >> $GITHUB_ENV
+        echo "CONFIG_JSON=$(jq -c . < ${{ github.action_path }}/config.json)" >> $GITHUB_ENV
+        echo "config=$(jq -c . < ${{ github.action_path }}/config.json)" >> $GITHUB_OUTPUT
     - run: |
-        echo "JAVA_MAIN=${{ fromJson(env.PROPERTIES_JSON).java.main }}" >> "$GITHUB_ENV"
-        echo "JAVA_NEXT=${{ fromJson(env.PROPERTIES_JSON).java.next }}" >> "$GITHUB_ENV"
+        echo "JAVA_MAIN=${{ fromJson(steps.load-ci-properties.outputs.config).java.main }}" >> "$GITHUB_ENV"
+        echo "JAVA_NEXT=${{ fromJson(env.CONFIG_JSON).java.next }}" >> "$GITHUB_ENV"
