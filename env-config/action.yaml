@@ -29,8 +29,3 @@ runs:
         echo "JAVA_MAIN=${{ fromJson(steps.load-ci-properties.outputs.config).java.main }}" >> "$GITHUB_ENV"
         echo "JAVA_NEXT=${{ fromJson(steps.load-ci-properties.outputs.config).java.next }}" >> "$GITHUB_ENV"
         echo "JAVA_DIST=${{ fromJson(steps.load-ci-properties.outputs.config).java.dist }}" >> "$GITHUB_ENV"
-        echo '### Configuration 🚀' >> $GITHUB_STEP_SUMMARY"
-        echo 'Java: >> $GITHUB_STEP_SUMMARY"
-        echo '* Main: ${JAVA_MAIN}' >> $GITHUB_STEP_SUMMARY"
-        echo '* Next: ${JAVA_NEXT}' >> $GITHUB_STEP_SUMMARY"
-        echo '* Distribution: ${JAVA_DIST}' >> $GITHUB_STEP_SUMMARY"
