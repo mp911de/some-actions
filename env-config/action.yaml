@@ -14,12 +14,9 @@ runs:
       id: load-ci-properties
       shell: bash
       run: |
-        content=`cat ${{ github.action_path }}/config.json`
-        # the following lines are only required for multi line json
-        content="${content//'%'/'%25'}"
-        content="${content//$'\n'/'%0A'}"
-        content="${content//$'\r'/'%0D'}"
-        echo "ci-properties='$content'" >> $GITHUB_OUTPUT
+        echo 'PROPERTIES_JSON<<EOF' >> $GITHUB_ENV
+        cat ${{ github.action_path }}/config.json >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
     - run: |
-        echo "JAVA_MAIN=${{ fromJson(steps.load-ci-properties.outputs.ci-properties).java.main }}" >> "$GITHUB_ENV"
-        echo "JAVA_NEXT=${{ fromJson(steps.load-ci-properties.outputs.ci-properties).java.next }}" >> "$GITHUB_ENV"
+        echo "JAVA_MAIN=${{ fromJson(env.PROPERTIES_JSON).java.main }}" >> "$GITHUB_ENV"
+        echo "JAVA_NEXT=${{ fromJson(env.PROPERTIES_JSON).java.next }}" >> "$GITHUB_ENV"
