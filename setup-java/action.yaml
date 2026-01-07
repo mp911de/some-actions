@@ -18,17 +18,14 @@ runs:
       with:
         java-version: '${{ env.JAVA_MAIN }}'
         distribution: '${{ env.JAVA_DIST }}'
-        cache: 'maven'
     - uses: actions/setup-java@v5
       if: ${{ inputs.java-version == 'next' }}
       with:
         java-version: '${{ env.JAVA_NEXT }}'
         distribution: '${{ env.JAVA_DIST }}'
-        cache: 'maven'
     - uses: actions/setup-java@v5
       if: ${{ inputs.java-version != 'main' && inputs.java-version != 'next' }}
       with:
         java-version: '${{ inputs.java-version}}'
         distribution: '${{ env.JAVA_DIST }}'
-        cache: 'maven'
 
