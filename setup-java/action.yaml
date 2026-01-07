@@ -6,11 +6,13 @@ inputs:
    description: 'The Java version to set up. Takes main, next, or a whole or semver Java version.'
   config:
    description: 'Config version identifier.'
+   required: false
+   default: 'main'
 
 runs:
   using: composite
   steps:
-    - uses: mp911de/some-actions/env-config@main
+    - uses: mp911de/some-actions/env-config@${{inputs.config}}
       id: ci-properties
       name: Load CI properties
     - uses: actions/setup-java@v5
