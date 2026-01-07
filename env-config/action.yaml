@@ -23,11 +23,12 @@ runs:
       id: load-ci-properties
       shell: bash
       run: |
-        CONFIG_JSON_PATH="${{ github.action_path }}/config.json"
-        if [[ -f "config.json" ]]; then
+        if [ test -f "config.json" ]; then
           CONFIG_JSON_PATH="./config.json"
-        elif [[ -f ".github/config.json" ]]; then
+        elif [ test -f ".github/config.json" ]; then
           CONFIG_JSON_PATH=".github/config.json"
+        else
+          CONFIG_JSON_PATH="${{ github.action_path }}/config.json"
         fi
         echo "CONFIG_JSON=$(jq -c . < ${CONFIG_JSON_PATH})" >> $GITHUB_ENV
         echo "config=$(jq -c . < ${CONFIG_JSON_PATH})" >> $GITHUB_OUTPUT
