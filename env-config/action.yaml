@@ -30,7 +30,6 @@ runs:
         else
           CONFIG_JSON_PATH="${{ github.action_path }}/config.json"
         fi
-        echo "CI config path: ${CONFIG_JSON_PATH}"
         echo "CONFIG_JSON=$(jq -c . < ${CONFIG_JSON_PATH})" >> $GITHUB_ENV
         echo "config=$(jq -c . < ${CONFIG_JSON_PATH})" >> $GITHUB_OUTPUT
     - run: |
