@@ -12,7 +12,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: mp911de/some-actions/env-config@${{inputs.config}}
+    - uses: mp911de/some-actions/env-config@main
       id: ci-properties
       name: Load CI properties
     - uses: actions/setup-java@v5
