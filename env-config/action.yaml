@@ -23,9 +23,8 @@ runs:
       id: load-ci-properties
       shell: bash
       run: |
-        CONFIG_JSON_PATH="${{ github.action_path }}/config.json"
-        echo "CONFIG_JSON=$(jq -c . < ${CONFIG_JSON_PATH})" >> $GITHUB_ENV
-        echo "config=$(jq -c . < ${CONFIG_JSON_PATH})" >> $GITHUB_OUTPUT
+        echo "CONFIG_JSON=$(jq -c . < ${{ github.action_path }}/config.json)" >> $GITHUB_ENV
+        echo "config=$(jq -c . < ${{ github.action_path }}/config.json)" >> $GITHUB_OUTPUT
     - run: |
         echo "JAVA_MAIN=${{ fromJson(steps.load-ci-properties.outputs.config).java.main }}" >> "$GITHUB_ENV"
         echo "JAVA_NEXT=${{ fromJson(steps.load-ci-properties.outputs.config).java.next }}" >> "$GITHUB_ENV"
