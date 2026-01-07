@@ -1,0 +1,35 @@
+name: 'Setup Java JDK'
+description: 'Set up versions of the Java JDK and add the command-line tools to the PATH'
+
+outputs:
+  inputs:
+    java-version:
+     description: 'The Java version to set up. Takes main, next, or a whole or semver Java version.'
+    config:
+     description: 'Config version identifier.'
+
+runs:
+  using: composite
+  steps:
+    - uses: mp911de/some-actions/env-config@main
+      id: ci-properties
+      name: Load CI properties
+    - uses: actions/setup-java@v5
+      if: ${{ inputs.java-version == 'main' }}
+      with:
+        java-version: '${{ env.JAVA_MAIN }}'
+        distribution: '${{ env.JAVA_DIST }}'
+        cache: 'maven'
+    - uses: actions/setup-java@v5
+      if: ${{ inputs.java-version == 'next' }}
+      with:
+        java-version: '${{ env.JAVA_NEXT }}'
+        distribution: '${{ env.JAVA_DIST }}'
+        cache: 'maven'
+    - uses: actions/setup-java@v5
+      if: ${{ inputs.java-version != 'main' && inputs.java-version != 'next' }}
+      with:
+        java-version: '${{ inputs.java-version}}'
+        distribution: '${{ env.JAVA_DIST }}'
+        cache: 'maven'
+
