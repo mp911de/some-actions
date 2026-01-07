@@ -1,12 +1,11 @@
 name: 'Setup Java JDK'
 description: 'Set up versions of the Java JDK and add the command-line tools to the PATH'
 
-outputs:
-  inputs:
-    java-version:
-     description: 'The Java version to set up. Takes main, next, or a whole or semver Java version.'
-    config:
-     description: 'Config version identifier.'
+inputs:
+  java-version:
+   description: 'The Java version to set up. Takes main, next, or a whole or semver Java version.'
+  config:
+   description: 'Config version identifier.'
 
 runs:
   using: composite
