@@ -31,6 +31,10 @@ inputs:
     description: 'Artifactory repository to which the artifacts should be deployed'
     required: false
     default: 'libs-snapshot-local'
+  skip-tests:
+    description: 'Whether to skip tests during deployment'
+    required: false
+    default: 'true'
 runs:
   using: composite
   steps:
@@ -45,5 +49,5 @@ runs:
         -Dartifactory.build-name="${{inputs.build-name}}" \
         -Dartifactory.build-number="${{inputs.build-number}}" \
         -DBUILD_URL="${{inputs.build-uri}}" \
-        -Dmaven.test.skip=true -U -B\
+        -Dmaven.test.skip=${{inputs.skip-tests}} -U -B\
         clean deploy

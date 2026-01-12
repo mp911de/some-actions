@@ -27,8 +27,7 @@ runs:
           develocity-url: 'https://ge.spring.io'
           develocity-access-key: '${{ inputs.develocity-access-key }}'
           add-pr-comment: false
-          capture-unpublished-build-scans: false
     - name: Set Env Variables
       shell: bash
       run: |
-        echo "MAVEN_OPTS=-Duser.name=spring-builds+github ${{ env.MAVEN_OPTS }}" >> "$GITHUB_ENV"
+        echo "MAVEN_OPTS=-Duser.name=spring-builds+github ${{ env.MAVEN_OPTS }}   " >> "$GITHUB_ENV"
