@@ -16,10 +16,10 @@ runs:
     - uses: mp911de/some-actions/setup-java@main
       with:
         java-version: '${{ inputs.java-version }}'
-    - name: Maven Cache
+    - name: Maven Repository Cache
       uses: actions/cache@v5.0.1
       with:
-        path: ~/.m2
+        path: ~/.m2/repository
         key: ${{ runner.os }}-maven
     - name: Setup Develocity Maven Capturing
       uses: gradle/develocity-actions/setup-maven@v2.1
