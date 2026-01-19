@@ -30,4 +30,4 @@ runs:
     - name: Set Env Variables
       shell: bash
       run: |
-        echo "MAVEN_OPTS=-Duser.name=spring-builds+github ${{ env.MAVEN_OPTS }}   " >> "$GITHUB_ENV"
+        echo "MAVEN_OPTS=-Duser.name=spring-builds+github ${{ env.MAVEN_OPTS }}" >> "$GITHUB_ENV"
