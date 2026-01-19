@@ -13,8 +13,8 @@ runs:
     - uses: mp911de/some-actions/env-config@main
       id: ci-properties
       name: Load CI properties
-    - name: Check condition with jq
-      id: preconfigured-java-version
+    - name: Check if Java version is pre-configured
+      id: check-java-version
       shell: bash
       run: |
         # Example: check if a JSON field meets a condition
@@ -23,12 +23,14 @@ runs:
         echo "PRECONFIGURED_JAVA_VERSION_EXISTS=$PRECONFIGURED_JAVA_VERSION_EXISTS" >> $GITHUB_OUTPUT
         echo "PRECONFIGURED_JAVA_VERSION=PRECONFIGURED_JAVA_VERSION" >> $GITHUB_OUTPUT
     - uses: actions/setup-java@v5
-      if: ${{ steps.check.outputs.PRECONFIGURED_JAVA_VERSION_EXISTS == 'true' }}
+      id: install-preconfigured-java-version
+      if: ${{ steps.outputs.check-java-version.PRECONFIGURED_JAVA_VERSION_EXISTS == 'true' }}
       with:
-        java-version: '${{ steps.check.outputs.PRECONFIGURED_JAVA_VERSION }}'
+        java-version: '${{ steps.outputs.check-java-version.PRECONFIGURED_JAVA_VERSION }}'
         distribution: '${{ env.JAVA_DIST }}'
     - uses: actions/setup-java@v5
-      if: ${{ steps.check.outputs.PRECONFIGURED_JAVA_VERSION_EXISTS == 'false' }}
+      id: install-custom-java-version
+      if: ${{ steps.outputs.check-java-version.PRECONFIGURED_JAVA_VERSION_EXISTS == 'false' }}
       with:
         java-version: '${{ inputs.java-version }}'
         distribution: '${{ env.JAVA_DIST }}'

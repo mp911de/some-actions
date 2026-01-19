@@ -11,6 +11,6 @@
     }
   },
   "build": {
-    "user.name": "foo-bar"
+    "username": "spring-builds+github"
   }
 }
