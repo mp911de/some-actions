@@ -24,13 +24,13 @@ runs:
         echo "PRECONFIGURED_JAVA_VERSION=PRECONFIGURED_JAVA_VERSION" >> $GITHUB_OUTPUT
     - uses: actions/setup-java@v5
       id: install-preconfigured-java-version
-      if: ${{ steps.outputs.check-java-version.PRECONFIGURED_JAVA_VERSION_EXISTS == 'true' }}
+      if: ${{ steps.check-java-version.outputs.PRECONFIGURED_JAVA_VERSION_EXISTS == 'true' }}
       with:
-        java-version: '${{ steps.outputs.check-java-version.PRECONFIGURED_JAVA_VERSION }}'
+        java-version: '${{ steps.check-java-version.outputs.PRECONFIGURED_JAVA_VERSION }}'
         distribution: '${{ env.JAVA_DIST }}'
     - uses: actions/setup-java@v5
       id: install-custom-java-version
-      if: ${{ steps.outputs.check-java-version.PRECONFIGURED_JAVA_VERSION_EXISTS == 'false' }}
+      if: ${{ steps.check-java-version.outputs.PRECONFIGURED_JAVA_VERSION_EXISTS == 'false' }}
       with:
         java-version: '${{ inputs.java-version }}'
         distribution: '${{ env.JAVA_DIST }}'
