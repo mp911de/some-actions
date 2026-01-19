@@ -8,13 +8,13 @@ outputs:
     value: ${{ steps.load-ci-properties.outputs.config }}
   java-main:
     description: 'Main Java Version'
-    value: ${{ fromJson(steps.load-ci-properties.outputs.config).java.main }}
+    value: ${{ fromJSON(steps.load-ci-properties.outputs.config).java.main }}
   java-next:
     description: 'Next Java Version'
-    value: ${{ fromJson(steps.load-ci-properties.outputs.config).java.next }}
+    value: ${{ fromJSON(steps.load-ci-properties.outputs.config).java.next }}
   java-dist:
     description: 'Java Distribution'
-    value: ${{ fromJson(steps.load-ci-properties.outputs.config).java.dist }}
+    value: ${{ fromJSON(steps.load-ci-properties.outputs.config).java.dist }}
 
 runs:
   using: composite
@@ -37,6 +37,6 @@ runs:
     - name: Set Env Variables
       shell: bash
       run: |
-        echo "JAVA_MAIN=${{ fromJson(steps.load-ci-properties.outputs.config).java.main }}" >> "$GITHUB_ENV"
-        echo "JAVA_NEXT=${{ fromJson(steps.load-ci-properties.outputs.config).java.next }}" >> "$GITHUB_ENV"
-        echo "JAVA_DIST=${{ fromJson(steps.load-ci-properties.outputs.config).java.dist }}" >> "$GITHUB_ENV"
+        echo "JAVA_MAIN=${{ fromJSON(steps.load-ci-properties.outputs.config).java.main }}" >> "$GITHUB_ENV"
+        echo "JAVA_NEXT=${{ fromJSON(steps.load-ci-properties.outputs.config).java.next }}" >> "$GITHUB_ENV"
+        echo "JAVA_DIST=${{ fromJSON(steps.load-ci-properties.outputs.config).java.dist }}" >> "$GITHUB_ENV"

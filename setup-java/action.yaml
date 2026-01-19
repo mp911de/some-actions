@@ -13,14 +13,23 @@ runs:
     - uses: mp911de/some-actions/env-config@main
       id: ci-properties
       name: Load CI properties
+    - name: Check condition with jq
+      id: preconfigured-java-version
+      shell: bash
+      run: |
+        # Example: check if a JSON field meets a condition
+        PRECONFIGURED_JAVA_VERSION_EXISTS=$(echo ${CONFIG_JSON} | jq -r '.java | has("${{ inputs.java-version }}")')
+        PRECONFIGURED_JAVA_VERSION=$(echo ${CONFIG_JSON} | jq -r '.java.${{ inputs.java-version }}")')
+        echo "PRECONFIGURED_JAVA_VERSION_EXISTS=$PRECONFIGURED_JAVA_VERSION_EXISTS" >> $GITHUB_OUTPUT
+        echo "PRECONFIGURED_JAVA_VERSION=PRECONFIGURED_JAVA_VERSION" >> $GITHUB_OUTPUT
     - uses: actions/setup-java@v5
-      if: ${{ contains(fromJson(steps.ci-properties.outputs.ci-properties).java, inputs.java-version) }}
+      if: ${{ steps.check.outputs.PRECONFIGURED_JAVA_VERSION_EXISTS == 'true' }}
       with:
-        java-version: '${{ fromJson(steps.ci-properties.outputs.ci-properties).java[inputs.java-version] }}'
-        distribution: '${{ fromJson(steps.ci-properties.outputs.ci-properties).java.dist }}'
+        java-version: '${{ steps.check.outputs.PRECONFIGURED_JAVA_VERSION }}'
+        distribution: '${{ env.JAVA_DIST }}'
     - uses: actions/setup-java@v5
-      if: ${{ inputs.java-version != 'main' && inputs.java-version != 'next' }}
+      if: ${{ steps.check.outputs.PRECONFIGURED_JAVA_VERSION_EXISTS == 'false' }}
       with:
-        java-version: '${{ inputs.java-version}}'
+        java-version: '${{ inputs.java-version }}'
         distribution: '${{ env.JAVA_DIST }}'
 
